@@ -169,9 +169,8 @@ class SmsListFragment : DataBindingFragment() {
         return consolidatedList
     }
 
-    private fun getDifference(d: Date): String {
+    private fun getDifference(endDate: Date): String {
         val startDate = Date(System.currentTimeMillis())
-        val endDate = d
 
         val duration: Long = endDate.time - startDate.time
 
@@ -179,7 +178,7 @@ class SmsListFragment : DataBindingFragment() {
         val diffInDays = TimeUnit.MILLISECONDS.toDays(duration)
         var count = ""
         if (diffInDays == 0L) {
-            when (diffInHours) {
+            when (Math.abs(diffInHours)) {
                 0L -> {
                     count = "0 hours ago"
                 }
