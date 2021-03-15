@@ -26,7 +26,9 @@ import com.rahulabrol.smsreader.model.Message
 import com.rahulabrol.smsreader.ui.adapter.SmsAdapter
 import com.rahulabrol.smsreader.ui.smsdetail.SmsDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
 
@@ -83,7 +85,7 @@ class SmsListFragment : DataBindingFragment() {
 
                     Permissions.check(
                         requireActivity() /*context*/,
-                        Manifest.permission.READ_SMS,
+                        Manifest.permission.RECEIVE_SMS,
                         null /*options*/,
                         object : PermissionHandler() {
                             override fun onGranted() {
@@ -122,16 +124,34 @@ class SmsListFragment : DataBindingFragment() {
         postAdapter.addSmsList(extractedList)
     }
 
+    /**
+     * Return date in specified format.
+     * @param milliSeconds Date in milliseconds
+     * @param dateFormat Date format
+     * @return String representing date in specified format
+     */
+    private fun getDate(milliSeconds: Long, dateFormat: String?): String {
+        // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat(dateFormat, Locale.getDefault())
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
+    }
+
     private fun getExtractedList(smsList: MutableList<Message>): ArrayList<ListItem> {
         val groupedHashMap: HashMap<String, List<ListItem>> = LinkedHashMap()
         smsList.forEach {
-            val generalItem = GeneralItem(it._address, it._msg, it._time)
-            if (groupedHashMap.containsKey(it._time)) {
-                (groupedHashMap[it._time] as ArrayList<GeneralItem>).add(generalItem)
+            val daysAgo = getDifference(it._time)
+            val generalItem =
+                GeneralItem(it._address, it._msg, getDate(it._time.time, "dd/MM/yyyy hh:mm:ss"))
+            if (groupedHashMap.containsKey(daysAgo)) {
+                (groupedHashMap[daysAgo] as ArrayList<GeneralItem>).add(generalItem)
             } else {
                 val arrayList = arrayListOf<GeneralItem>()
                 arrayList.add(generalItem)
-                groupedHashMap[it._time] = arrayList
+                groupedHashMap[daysAgo] = arrayList
             }
         }
 
@@ -149,7 +169,46 @@ class SmsListFragment : DataBindingFragment() {
         return consolidatedList
     }
 
-    fun readSmsFromPhone(): MutableList<Message> {
+    private fun getDifference(d: Date): String {
+        val startDate = Date(System.currentTimeMillis())
+        val endDate = d
+
+        val duration: Long = endDate.time - startDate.time
+
+        val diffInHours = TimeUnit.MILLISECONDS.toHours(duration)
+        val diffInDays = TimeUnit.MILLISECONDS.toDays(duration)
+        var count = ""
+        if (diffInDays == 0L) {
+            when (diffInHours) {
+                0L -> {
+                    count = "0 hours ago"
+                }
+                1L -> {
+                    count = "1 hours ago"
+                }
+                2L -> {
+                    count = "2 hours ago"
+                }
+                3L -> {
+                    count = "3 hours ago"
+                }
+                4L, 5L, 6L -> {
+                    count = "6 hours ago"
+                }
+                7L, 8L, 9L, 10L, 11L, 12L -> {
+                    count = "12 hours ago"
+                }
+                else -> {
+                    count = "1 day ago"
+                }
+            }
+        } else {
+            count = "${Math.abs(diffInDays)} days ago"
+        }
+        return count
+    }
+
+    private fun readSmsFromPhone(): MutableList<Message> {
         val smsList: MutableList<Message> = ArrayList()
         val c: Cursor? = requireContext().contentResolver.query(
             Telephony.Sms.CONTENT_URI,
@@ -176,7 +235,7 @@ class SmsListFragment : DataBindingFragment() {
                         }
                     }
 //                    Log.e("SMS READED", "Number: $number Message: $body Time: $smsDate")
-                    val message = Message(number, body, smsDate)
+                    val message = Message(number, body, dateFormat)
                     smsList.add(message)
                     c.moveToNext()
                 }

@@ -10,9 +10,6 @@ import com.rahulabrol.smsreader.R
 import com.rahulabrol.smsreader.base.DataBindingFragment
 import com.rahulabrol.smsreader.databinding.FragmentSmsDetailBinding
 import com.rahulabrol.smsreader.model.GeneralItem
-import com.rahulabrol.smsreader.model.ListItem
-import com.rahulabrol.smsreader.model.Message
-import com.rahulabrol.smsreader.ui.adapter.SmsDetailAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -24,14 +21,9 @@ class SmsDetailFragment : DataBindingFragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     lateinit var binding: FragmentSmsDetailBinding
 
-    private val postDetailAdapter by lazy(LazyThreadSafetyMode.PUBLICATION) {
-        SmsDetailAdapter()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-        val post = arguments?.getParcelable<Message>(POST)
     }
 
     override fun onCreateView(
@@ -45,8 +37,7 @@ class SmsDetailFragment : DataBindingFragment() {
             container
         ).apply {
             lifecycleOwner = this@SmsDetailFragment
-            adapter = postDetailAdapter
-            viewModel = homeViewModel
+            post = arguments?.getParcelable(POST)
         }
         return binding.root
     }

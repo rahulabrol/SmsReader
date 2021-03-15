@@ -2,6 +2,7 @@ package com.rahulabrol.smsreader.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 /**
  * Created by Rahul Abrol on 14/3/21.
@@ -39,5 +40,5 @@ class DateItem(
 data class Message(
     var _address: String,
     var _msg: String,
-    var _time: String
+    var _time: Date
 ) : Parcelable

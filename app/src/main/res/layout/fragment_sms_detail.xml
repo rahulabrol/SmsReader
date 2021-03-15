@@ -6,96 +6,52 @@
     <data>
 
         <variable
-            name="adapter"
-            type="com.rahulabrol.smsreader.ui.adapter.SmsDetailAdapter" />
-
-        <variable
-            name="viewModel"
-            type="com.rahulabrol.smsreader.HomeViewModel" />
-
-        <variable
-            name="name"
-            type="String" />
-
-        <variable
-            name="email"
-            type="String" />
+            name="post"
+            type="com.rahulabrol.smsreader.model.GeneralItem" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/grey_light_opacity_5">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideLineTop"
-            android:layout_width="@dimen/dimen_1"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="@dimen/dimen_20" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideLineStart"
-            android:layout_width="@dimen/dimen_1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/dimen_20" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideLineEnd"
-            android:layout_width="@dimen/dimen_1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/dimen_20" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@color/white"
+        android:padding="@dimen/dimen_2">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{name}"
-            android:textSize="@dimen/text_size_20"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/guideLineStart"
-            app:layout_constraintTop_toTopOf="@id/guideLineTop"
-            tools:text="Name" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_5"
-            android:text="@{email}"
-            android:textSize="@dimen/text_size_20"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/guideLineStart"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="email@gmil.com" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPostDetail"
+            android:id="@+id/tvClassHeader"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dimen_15"
-            app:adapter="@{adapter}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guideLineEnd"
-            app:layout_constraintStart_toEndOf="@id/guideLineStart"
-            app:layout_constraintTop_toBottomOf="@id/tvEmail"
-            app:toast="@{viewModel.toastLiveData}"
-            tools:itemCount="5"
-            tools:listitem="@layout/item_sms_detail" />
-
-        <ProgressBar
-            android:id="@+id/pBar"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:gone="@{!viewModel.loading}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_2"
+            android:layout_marginEnd="@dimen/dimen_5"
+            android:letterSpacing="-0.04"
+            android:text="@{post._address}"
+            android:textSize="@dimen/text_size_20"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="p"
+            tools:text="dflkfs fkdf dfkjkd skjflsskdljf lskdfjlk kskkdsjfl dlsalks dfldsad ksjjlfjldslfajs kdjlfldskldfjsh k" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPostCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginEnd="@dimen/dimen_5"
+            android:letterSpacing="-0.04"
+            android:text="@{post._msg}"
+            android:textColor="@color/grey_light_1"
+            android:textSize="@dimen/text_size_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClassHeader"
+            tools:targetApi="p"
+            tools:text="dflkfs fkdf dfkjkd skjflsskdljf lskdfjlk kskkdsjfl dlsalks dfldsad ksjjlfjldslfajs kdjlfldskldfjsh k" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
