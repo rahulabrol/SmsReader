@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="date"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@color/white"
+        android:padding="@dimen/dimen_2">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvClassHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginEnd="@dimen/dimen_5"
+            android:ellipsize="end"
+            android:letterSpacing="-0.04"
+            android:maxLines="1"
+            android:text="@{date}"
+            android:textFontWeight="800"
+            android:textSize="@dimen/text_size_20"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="p"
+            tools:text="0 hours ago" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

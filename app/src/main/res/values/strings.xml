@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Sms Reader</string>
+    <string name="no_data_found">No Data found</string>
+    <string name="sms_access_req">Sms access required</string>
+    <string name="sms_permission_not_available">Sms permission not available</string>
+    <string name="sms_permission_available">Sms permission available</string>
+    <string name="ok">OK</string>
+    <string name="sms_permission_granted">Sms permission granted</string>
+    <string name="sms_permission_denied">Sms permissioin denied</string>
+</resources>

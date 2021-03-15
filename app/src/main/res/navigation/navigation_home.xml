@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_home"
+    app:startDestination="@id/smsListFragment">
+
+    <fragment
+        android:id="@+id/smsListFragment"
+        android:name="com.rahulabrol.smsreader.ui.smslist.SmsListFragment"
+        android:label="SmsListFragment"
+        tools:layout="@layout/fragment_sms_list">
+        <action
+            android:id="@+id/action_smsListFragment_to_smsDetailFragment"
+            app:destination="@id/smsDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/smsDetailFragment"
+        android:name="com.rahulabrol.smsreader.ui.smsdetail.SmsDetailFragment"
+        android:label="SmsDetailFragment"
+        tools:layout="@layout/fragment_sms_detail"/>
+
+</navigation>
