@@ -52,19 +52,9 @@
             app:layout_constraintEnd_toStartOf="@id/guideLineEnd"
             app:layout_constraintStart_toEndOf="@id/guideLineStart"
             app:layout_constraintTop_toTopOf="parent"
-            app:toast="@{viewModel.toastLiveData}"
             tools:itemCount="5"
             tools:listitem="@layout/item_sms" />
 
-        <ProgressBar
-            android:id="@+id/pBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:gone="@{!viewModel.loading}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
